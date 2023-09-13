@@ -7,7 +7,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     if (user && (await user.matchPassword(password))) {
         res.json({
-            _id: user._id,
+            _id: user._id, 
             name: user.name,
             email: user.email,
             token: generateToken(user._id),
@@ -20,6 +20,17 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
+
+const logoutUser = asyncHandler(async (req, res) => {
+    res.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    });
+    res.status(200).json({
+        success: true,
+        message: "Logged out",
+    });
+});
 
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, isStudent } = req.body;
@@ -50,4 +61,4 @@ const registerUser = asyncHandler(async (req, res) => {
 }
 )
 
-module.exports = { registerUser, loginUser }
+module.exports = { registerUser, loginUser ,logoutUser}
