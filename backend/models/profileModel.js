@@ -1,23 +1,29 @@
 const mongoose = require('mongoose')
-const studentSchema = mongoose.Schema({
-    firstname: {
+const profileSchema = mongoose.Schema({
+    name: {
         type: String,
         required: true,
     },
-    lastname: {
+    career: {
+        type: String,
+        required: true,
+        //    what u ant to be 
+    },
+    bio: {
         type: String,
         required: true,
     },
-    email: {
+
+    education: {
         type: String,
         required: true,
-        unique: true,
     },
-    courseEnrolled: [{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "Course",
-    }],
+
+    achievements: {
+        type: String,
+        required: false,
+    },
+
     prof_pic: {
         type: String,
         required: true,
@@ -30,9 +36,11 @@ const studentSchema = mongoose.Schema({
     }
 
 },
-);
+    {
+        timestamps: true,
+    });
 
 
 
-const Student = mongoose.model("Student", studentSchema);
-module.exports = Student;
+const Profile = mongoose.model("Profile", profileSchema);
+module.exports = Profile;
