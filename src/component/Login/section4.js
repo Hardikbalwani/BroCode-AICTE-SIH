@@ -1,4 +1,6 @@
-import React from "react";
+/* global bootstrap */
+
+import React, { useEffect } from "react";
 
 const Section4 = () => {
     const carouselItemStyle = {
@@ -12,19 +14,23 @@ const Section4 = () => {
         height: "100%",
     };
 
+    useEffect(() => {
+        // Initialize the carousel
+        const carousel = new bootstrap.Carousel(document.getElementById('carouselExampleFade'));
+    }, []);
+
     return (
         <div className="">
             <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner">
+                   
                     <div className="carousel-item active" style={carouselItemStyle}>
-                        <img src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" className="d-block w-100" alt="..." style={imageStyle} />
+                        <img src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/202206/aicte-1-sixteen_nine.jpg?size=948:533" className="d-block w-100" alt="..." style={imageStyle} />
                     </div>
-                    <div className="carousel-item" style={carouselItemStyle}>
-                        <img src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" className="d-block w-100" alt="..." style={imageStyle} />
+                    <div className="carousel-item active" style={carouselItemStyle}>
+                        <img src="https://www.aicte-india.org/sites/default/files/images/slideshow/Web%20Banner.jpeg" className="d-block w-100" alt="..." style={imageStyle} />
                     </div>
-                    <div className="carousel-item" style={carouselItemStyle}>
-                        <img src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cmFuZG9tfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" className="d-block w-100" alt="..." style={imageStyle} />
-                    </div>
+                   
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>

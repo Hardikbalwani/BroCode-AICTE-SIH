@@ -20,6 +20,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/student" element={<Student name="Rushikesh Verma" appId="MH210042014"/>} />
+          <Route path="/educator" element={<Educator />} />
           
         </Routes>
       </div>
