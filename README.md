@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# BroCode-AICTE-SIH
+The All India Council for Technical Education (AICTE) is responsible for formulating and maintaining the curriculum standards for technical education in India. A unified portal is required to collaborate with educational experts, curriculum designers to provide the functionality and designing a model curriculum for all the Institutes.
+Xavier
+>>>>>>> origin/main
