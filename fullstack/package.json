@@ -1,0 +1,13 @@
+{
+    "name": "fullstack",
+    "version": "1.0.0",
+    "scripts": {
+      "start:off-blog": "cd backend && npm start",
+      "start:frontend": "cd BroCode-AICTE-SIH && npm start",
+      "start": "concurrently \"npm run start:off-blog\" \"npm run start:frontend\""
+    },
+    "dependencies": {
+      "concurrently": "^8.2.0"
+    }
+  }
+  
