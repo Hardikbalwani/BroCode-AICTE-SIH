@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from "./login";
 import Student from "./Student";
 import Educator from "./Educator";
+import Signup from "./signup";
 
 const Card = (props) => {
   const cardContent = (
@@ -30,6 +31,7 @@ const Card = (props) => {
         <Route path="/login" element={<Login />} />
         <Route path="/student" element={<Student />} />
         <Route path="/educator" element={<Educator />} />
+        <Route path="/register" element={<Signup />} />
       </Routes>
 
       {cardContent}

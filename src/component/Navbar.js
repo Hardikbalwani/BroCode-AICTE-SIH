@@ -5,9 +5,9 @@ const Navbar = () => {
     <>
     <nav className="navbar navbar-expand-lg" style={{backgroundColor:"#F75700"}}> 
   <div className="container-fluid">
-    <a className="navbar-brand" href="/home">
+    <Link className="navbar-brand" to="/">
       <img style={{width:'30px'}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR45KpXraMF-TvLJ7VaTuKUtF-iWDZK3Q4iSw&usqp=CAU" alt="" />
-    </a>
+    </Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>

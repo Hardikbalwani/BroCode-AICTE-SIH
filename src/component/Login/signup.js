@@ -1,7 +1,40 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-const Signup = () => {
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+const Signup = (props) => {
+    const [credentials, setCredentials] = useState({name:"", email:"", password:"", cpassword:""});
+    const navigate = useNavigate();
+  
+    const handleSubmit =async (e) => {
+      e.preventDefault();
+      const {name, email, password} = credentials;
+      const response = await fetch("http://localhost:4000/api/users/register", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({name, email, password})
+        });
+        const json = await response.json();
+        console.log(json)
+
+        if(!json.userExists)
+            {
+              // Save the auth token and redirect
+              localStorage.setItem('token', json.authtoken)
+              console.log("user registered successfully")
+              navigate("/login")
+            }
+            else
+            {
+                console.log("internal error");
+            }
+        
+  }
+  const onChange = (e)=>{
+      setCredentials({...credentials, [e.target.name]: e.target.value})
+  }
     return (
         <section className="vh-100">
             <div className="container-fluid h-custom">
@@ -10,37 +43,20 @@ const Signup = () => {
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                             className="img-fluid"
-                            alt="Sample image"
-                        />
+                            alt="Sample"
+                        />  
                     </div>
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form>
-                            <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                <p className="lead fw-normal mb-0 me-3">Sign up with</p>
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faFacebookF} />
-                                </button>
-
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faTwitter} />
-                                </button>
-
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faLinkedinIn} />
-                                </button>
-                            </div>
-
-                            <div className="divider d-flex align-items-center my-4">
-                                <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                            </div>
-
+                        <form>                            
                             {/* Email input */}
                             <div className="form-outline mb-4">
                                 <input
+                                    name="name"
                                     type="name"
-                                    id="form3Example3"
+                                    id="name"
                                     className="form-control form-control-lg"
                                     placeholder="Enter your name"
+                                    onChange={onChange}
                                 />
                                 <label className="form-label" htmlFor="form3Example3">
                                     {/* Name */}
@@ -49,10 +65,13 @@ const Signup = () => {
 
                             <div className="form-outline mb-4">
                                 <input
+                                    name="email"
                                     type="email"
-                                    id="form3Example3"
+                                    id="email"
                                     className="form-control form-control-lg"
                                     placeholder="Enter a valid email address"
+                                    onChange={onChange}
+                                    
                                 />
                                 <label className="form-label" htmlFor="form3Example3">
                                     {/* Email address */}
@@ -62,26 +81,25 @@ const Signup = () => {
                             {/* Password input */}
                             <div className="form-outline mb-3">
                                 <input
+                                name="password"
                                     type="password"
-                                    id="form3Example4"
+                                    id="password"
                                     className="form-control form-control-lg"
                                     placeholder="Enter password"
+                                    onChange={onChange}
+
                                 />
-                                <label className="form-label" htmlFor="form3Example4">
-                                    {/* Enter Password */}
-                                </label>
+                               
                             </div>
 
                             <div className="form-outline mb-3">
                                 <input
                                     type="password"
-                                    id="form3Example4"
+                                    id="password"
                                     className="form-control form-control-lg"
                                     placeholder="Confirm password"
                                 />
-                                <label className="form-label" htmlFor="form3Example4">
-                                    {/* Confirm Password */}
-                                </label>
+                               
                             </div>
 
 
@@ -90,6 +108,7 @@ const Signup = () => {
                                     type="button"
                                     className="btn btn-primary btn-lg"
                                     style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
+                                    onClick={handleSubmit}
                                 >
                                     SignUp
                                 </button>
@@ -98,29 +117,7 @@ const Signup = () => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-                {/* Copyright */}
-                <div className="text-white mb-3 mb-md-0">
-                    Copyright © 2020. All rights reserved.
-                </div>
-                {/* Right */}
-                <div>
-                    <a href="#!" className="text-white me-4">
-                    <FontAwesomeIcon icon={faFacebookF} />
-                    </a>
-                    <a href="#!" className="text-white me-4">
-                    <FontAwesomeIcon icon={faTwitter} />
-                    </a>
-                    <a href="#!" className="text-white me-4">
-                        <FontAwesomeIcon icon={faGoogle} />
-                    </a>
-                    <a href="#!" className="text-white">
-                    <FontAwesomeIcon icon={faLinkedinIn} />
-
-                    </a>
-                </div>
-                {/* Right */}
-            </div>
+           
         </section>
     );
 };

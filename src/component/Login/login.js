@@ -1,7 +1,45 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebookF, faTwitter, faGoogle, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-const Login = () => {
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react'
+import tempContext from "../TempContext";
+
+const Login = (props) => {
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const context = useContext(tempContext);
+    const {userName, setUserName } = context
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch("http://localhost:4000/api/users/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+        });
+        const json = await response.json();
+        console.log(json)
+        if (json.userExists) {
+            // Save the auth token and redirect
+            setUserName(json.name);
+            const name = userName;
+            console.log(userName);
+            localStorage.setItem('token', json.authtoken)
+            navigate('/student');
+        }
+        else {
+            alert("Please Enter Valid Credentials")
+            setCredentials({ email: "", password: "" });
+            console.log("internal error")
+        }
+    }
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
+
+
     return (
         <section className="vh-100">
             <div className="container-fluid h-custom mt-3">
@@ -10,37 +48,22 @@ const Login = () => {
                         <img
                             src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                             className="img-fluid"
-                            alt="Sample image"
+                            alt="Sample"
                         />
                     </div>
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form>
-                            <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-                                <p className="lead fw-normal mb-0 me-3">Sign in with</p>
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faFacebookF} />
-                                </button>
-
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faTwitter} />
-                                </button>
-
-                                <button type="button" className="btn btn-primary btn-floating mx-1">
-                                <FontAwesomeIcon icon={faLinkedinIn} />
-                                </button>
-                            </div>
-
-                            <div className="divider d-flex align-items-center my-4">
-                                <p className="text-center fw-bold mx-3 mb-0">Or</p>
-                            </div>
 
                             {/* Email input */}
                             <div className="form-outline mb-4">
                                 <input
+                                    name='email'
                                     type="email"
-                                    id="form3Example3"
+                                    id="email"
                                     className="form-control form-control-lg"
                                     placeholder="Enter a valid email address"
+                                    onChange={onChange}
+                                    value={credentials.email}
                                 />
                                 <label className="form-label" htmlFor="form3Example3">
                                     Email address
@@ -50,32 +73,17 @@ const Login = () => {
                             {/* Password input */}
                             <div className="form-outline mb-3">
                                 <input
+                                    name='password'
                                     type="password"
-                                    id="form3Example4"
+                                    id="password"
                                     className="form-control form-control-lg"
                                     placeholder="Enter password"
+                                    onChange={onChange}
+                                    value={credentials.password}
                                 />
                                 <label className="form-label" htmlFor="form3Example4">
                                     Password
                                 </label>
-                            </div>
-
-                            <div className="d-flex justify-content-between align-items-center">
-                                {/* Checkbox */}
-                                <div className="form-check mb-0">
-                                    <input
-                                        className="form-check-input me-2"
-                                        type="checkbox"
-                                        value=""
-                                        id="form2Example3"
-                                    />
-                                    <label className="form-check-label" htmlFor="form2Example3">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#!" className="text-body">
-                                    Forgot password?
-                                </a>
                             </div>
 
                             <div className="text-center text-lg-start mt-4 pt-2">
@@ -83,21 +91,26 @@ const Login = () => {
                                     type="button"
                                     className="btn btn-primary btn-lg"
                                     style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
+                                    onClick={handleSubmit}
                                 >
                                     Login
                                 </button>
                                 <p className="small fw-bold mt-2 pt-1 mb-0">
-                                    Don't have an account? <a href="/register" className="link-danger">Register</a>
+                                    Don't have an account?           <Link to="/register" className="">register</Link>
+
                                 </p>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            
-                {/* Right */}
+
+            {/* Right */}
         </section>
     );
 };
 
 export default Login;
+
+
+
